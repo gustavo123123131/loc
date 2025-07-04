@@ -1,0 +1,61 @@
+body {
+    background: linear-gradient(135deg, #4b0082, #000);
+    color: #eee;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+h1 {
+    color: #ff66cc;
+    font-size: 26px;
+}
+
+p {
+    margin: 15px 0;
+    font-size: 16px;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;         /* Altura automática, não corta a imagem */
+    max-height: 500px;    /* Opcional: limita a altura máxima no celular */
+    object-fit: contain;  /* Garante a imagem inteira visível */
+    border: 2px solid #ff66cc;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: #111;     /* Caso a imagem seja menor, fundo escuro */
+}
+
+.gallery img:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 15px #ff66cc;
+}
+
+/* Remove o #local */
+#local {
+    display: none !important;
+}
+
+/* Responsividade extra para telas menores */
+@media (max-width: 480px) {
+    .gallery {
+        max-width: 98vw;
+        padding: 0;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    p {
+        font-size: 15px;
+    }
+}
