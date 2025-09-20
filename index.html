@@ -3,27 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <title>Minha Galeria</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- IMPORTANTE para mobile -->
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        p {
+            text-align: center;
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            color: #b8c5d6;
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery img:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 
+                        0 0 50px rgba(255, 107, 107, 0.2);
+        }
+
+        .gallery img:nth-child(odd):hover {
+            transform: translateY(-15px) scale(1.05) rotate(2deg);
+        }
+
+        .gallery img:nth-child(even):hover {
+            transform: translateY(-15px) scale(1.05) rotate(-2deg);
+        }
+
+        /* Efeito de brilho nas bordas */
+        .gallery img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery img:hover::before {
+            opacity: 1;
+        }
+
+        #local {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 15px 25px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animação de entrada para as imagens */
+        .gallery img {
+            animation: slideInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .gallery img:nth-child(1) { animation-delay: 0.1s; }
+        .gallery img:nth-child(2) { animation-delay: 0.2s; }
+        .gallery img:nth-child(3) { animation-delay: 0.3s; }
+        .gallery img:nth-child(4) { animation-delay: 0.4s; }
+        .gallery img:nth-child(5) { animation-delay: 0.5s; }
+        .gallery img:nth-child(6) { animation-delay: 0.6s; }
+        .gallery img:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .gallery img {
+                height: 300px;
+            }
+            
+            #local {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .gallery img {
+                height: 250px;
+            }
+        }
+
+        /* Efeito de partículas de fundo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(77, 150, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(107, 207, 127, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Minha Galeria</h1>
         <p>Bem vindo ao meu melhor ângulo de cada posição</p>
         <div class="gallery">
-            <img src="images/foto1.jpg" alt="Foto 1">
-            <img src="images/foto2.jpg" alt="Foto 2">
-            <img src="images/foto3.jpg" alt="Foto 3">
-            <img src="images/foto4.jpg" alt="Foto 4">
-            <img src="images/foto5.jpg" alt="Foto 5">
-            <img src="images/foto6.jpg" alt="Foto 6">
-            <img src="images/foto7.jpg" alt="Foto 7">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Foto 1">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face" alt="Foto 2">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" alt="Foto 3">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" alt="Foto 4">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face" alt="Foto 5">
+            <img src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=400&fit=crop&crop=face" alt="Foto 6">
+            <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop&crop=face" alt="Foto 7">
         </div>
-       <div id="local" style="display:none">Localizando...</div>
+        <div id="local" style="display:none">Localizando...</div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        // Script original mantido
+        setTimeout(function() {
+            document.getElementById('local').style.display = 'block';
+        }, 2000);
+    </script>
 </body>
 </html>
-
-
-
